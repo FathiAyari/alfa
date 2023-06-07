@@ -4,4 +4,7 @@ class ApiConstants {
   static Map<String, String> headers = {"Content-Type": "application/json"};
   static String login = "login";
   static String register = "register";
+  static String home = "home";
+  static String clients = "clients";
+  static String client = "client";
 }

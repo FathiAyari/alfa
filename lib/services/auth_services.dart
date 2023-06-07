@@ -49,4 +49,14 @@ class AuthServices {
       (route) => route.settings.name == '/',
     );
   }
+
+  static Future<http.Response> home() async {
+    var url = Uri.parse(ApiConstants.baseURL + ApiConstants.home);
+    http.Response response = await http.get(
+      url,
+      headers: ApiConstants.headers,
+    );
+    print(response.body);
+    return response;
+  }
 }

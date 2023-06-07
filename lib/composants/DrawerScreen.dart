@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/screen/LoginPage.dart';
+import 'package:flutter_application_1/screen/Accueil.dart';
+import 'package:flutter_application_1/screen/ConsulterVente.dart';
 import 'package:flutter_application_1/screen/GestionArchive.dart';
 import 'package:flutter_application_1/screen/GestionStock.dart';
-import 'package:flutter_application_1/screen/ConsulterVente.dart';
 import 'package:flutter_application_1/screen/Parametre.dart';
-import 'package:flutter_application_1/screen/Accueil.dart';
+import 'package:flutter_application_1/screen/clients/clients_screen.dart';
 import 'package:flutter_application_1/services/auth_services.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -103,6 +103,21 @@ class DrawerScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => GestionStock()),
+              );
+            },
+          ),
+          ListTile(
+            iconColor: Colors.blue.shade300,
+            leading: const Icon(Icons.account_circle_outlined),
+            title: const Text('Gestion de clients',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                )),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ClientsScreen()),
               );
             },
           ),
