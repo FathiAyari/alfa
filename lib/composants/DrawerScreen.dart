@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/Accueil.dart';
 import 'package:flutter_application_1/screen/ConsulterVente.dart';
 import 'package:flutter_application_1/screen/GestionArchive.dart';
-import 'package:flutter_application_1/screen/GestionStock.dart';
 import 'package:flutter_application_1/screen/Parametre.dart';
 import 'package:flutter_application_1/screen/clients/clients_screen.dart';
+import 'package:flutter_application_1/screen/stock/products_screen.dart';
 import 'package:flutter_application_1/services/auth_services.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -94,7 +94,7 @@ class DrawerScreen extends StatelessWidget {
           ListTile(
             iconColor: Colors.blue.shade300,
             leading: const Icon(Icons.manage_accounts),
-            title: const Text('Gestion Stock',
+            title: const Text('Gestion de Stock',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
@@ -102,7 +102,7 @@ class DrawerScreen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => GestionStock()),
+                MaterialPageRoute(builder: (context) => ProductsScreen()),
               );
             },
           ),

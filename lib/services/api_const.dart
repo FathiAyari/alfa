@@ -7,4 +7,6 @@ class ApiConstants {
   static String home = "home";
   static String clients = "clients";
   static String client = "client";
+  static String product = "product";
+  static String products = "products";
 }

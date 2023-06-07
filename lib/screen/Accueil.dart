@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/composants/DrawerScreen.dart';
 import 'package:flutter_application_1/screen/ConsulterVente.dart';
 import 'package:flutter_application_1/screen/GestionArchive.dart';
-import 'package:flutter_application_1/screen/GestionStock.dart';
 import 'package:flutter_application_1/services/auth_services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import 'stock/products_screen.dart';
 
 class Accueil extends StatefulWidget {
   const Accueil({Key? key}) : super(key: key);
@@ -214,7 +215,7 @@ class _AccueilState extends State<Accueil> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => GestionStock()),
+                      MaterialPageRoute(builder: (context) => ProductsScreen()),
                     );
                   },
                   child: _buildDashboardItem(
