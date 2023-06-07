@@ -5,6 +5,7 @@ import 'package:flutter_application_1/screen/GestionStock.dart';
 import 'package:flutter_application_1/screen/ConsulterVente.dart';
 import 'package:flutter_application_1/screen/Parametre.dart';
 import 'package:flutter_application_1/screen/Accueil.dart';
+import 'package:flutter_application_1/services/auth_services.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({super.key});
@@ -130,10 +131,7 @@ class DrawerScreen extends StatelessWidget {
                   fontSize: 16,
                 )),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
+              AuthServices.logOut(context);
             },
           ),
         ],
