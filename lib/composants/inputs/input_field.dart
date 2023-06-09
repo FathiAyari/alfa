@@ -6,17 +6,27 @@ class InputField extends StatelessWidget {
   final TextInputType textInputType;
   final TextEditingController controller;
   final Widget? prefixWidget;
+  final Widget? suffixIcon;
+  final Function(String)? onChanged;
 
-  const InputField({Key? key, required this.label, required this.textInputType, required this.controller, this.prefixWidget})
+  const InputField(
+      {Key? key,
+      required this.label,
+      required this.textInputType,
+      required this.controller,
+      this.prefixWidget,
+      this.suffixIcon,
+      this.onChanged})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: Constants.screenHeight * 0.001, horizontal: Constants.screenWidth * 0.07),
-      child: Container(
+      padding: EdgeInsets.symmetric(vertical: Constants.screenHeight * 0.001, horizontal: Constants.screenWidth * 0.02),
+      child: SizedBox(
         height: Constants.screenHeight * 0.1,
         child: TextFormField(
+          onChanged: (value) => onChanged != null ? onChanged!(value) : null,
           style: TextStyle(fontSize: 18),
           controller: controller,
           validator: (value) {
@@ -46,6 +56,7 @@ class InputField extends StatelessWidget {
               ),
             ),
             prefixIcon: prefixWidget,
+            suffixIcon: suffixIcon,
             hintText: label,
             filled: true,
             fillColor: Colors.white,

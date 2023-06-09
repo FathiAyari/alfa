@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/composants/DrawerScreen.dart';
-import 'package:flutter_application_1/screen/ConsulterVente.dart';
-import 'package:flutter_application_1/screen/GestionArchive.dart';
+import 'package:flutter_application_1/screen/archive/all_archives.dart';
+import 'package:flutter_application_1/screen/sales/all_sales.dart';
 import 'package:flutter_application_1/services/auth_services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -172,7 +172,7 @@ class _AccueilState extends State<Accueil> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ConsulterVente()),
+                      MaterialPageRoute(builder: (context) => AllSalesScreen()),
                     );
                   },
                   child: _buildDashboardItem(
@@ -192,7 +192,7 @@ class _AccueilState extends State<Accueil> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => GestionArchive()),
+                      MaterialPageRoute(builder: (context) => AllArchives()),
                     );
                   },
                   child: _buildDashboardItem(

@@ -57,8 +57,8 @@ class _AddProductState extends State<AddProduct> {
                           setState(() {
                             loading = true;
                           });
-                          StockServices.addProduct(labelController.text, int.tryParse(quantityController.text)!,
-                                  int.tryParse(priceController.text)!)
+                          StockServices.addProduct(labelController.text, double.parse(quantityController.text)!,
+                                  double.parse(priceController.text))
                               .then((value) {
                             setState(() {
                               loading = false;

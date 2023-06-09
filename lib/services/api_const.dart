@@ -1,5 +1,6 @@
 class ApiConstants {
-  static String baseURL = "http://192.168.102.86:8000/api/";
+  static String ip = "192.168.102.86:8000";
+  static String baseURL = "http://${ip}/api/";
 
   static Map<String, String> headers = {"Content-Type": "application/json"};
   static String login = "login";
@@ -9,4 +10,8 @@ class ApiConstants {
   static String client = "client";
   static String product = "product";
   static String products = "products";
+  static String sale = "sale";
+  static String sales = "sales";
+  static String pdf = "pdf";
+  static String allpdf = "allpdf";
 }

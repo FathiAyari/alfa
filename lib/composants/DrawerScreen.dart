@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/Accueil.dart';
-import 'package:flutter_application_1/screen/ConsulterVente.dart';
-import 'package:flutter_application_1/screen/GestionArchive.dart';
 import 'package:flutter_application_1/screen/Parametre.dart';
+import 'package:flutter_application_1/screen/archive/all_archives.dart';
 import 'package:flutter_application_1/screen/clients/clients_screen.dart';
+import 'package:flutter_application_1/screen/sales/all_sales.dart';
 import 'package:flutter_application_1/screen/stock/products_screen.dart';
 import 'package:flutter_application_1/services/auth_services.dart';
 
@@ -72,7 +72,7 @@ class DrawerScreen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ConsulterVente()),
+                MaterialPageRoute(builder: (context) => AllSalesScreen()),
               );
             },
           ),
@@ -87,7 +87,7 @@ class DrawerScreen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => GestionArchive()),
+                MaterialPageRoute(builder: (context) => AllArchives()),
               );
             },
           ),

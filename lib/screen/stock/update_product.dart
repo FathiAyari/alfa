@@ -60,7 +60,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                       child: CircularProgressIndicator(),
                     )
                   : ActionButton(
-                      label: "Ajouter",
+                      label: "Mettre à jour",
                       buttonColor: Colors.blue,
                       labelColor: Colors.white,
                       onPressed: () async {
@@ -69,7 +69,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                             loading = true;
                           });
                           StockServices.updateProduct(widget.product.id, labelController.text,
-                                  int.tryParse(quantityController.text)!, int.tryParse(priceController.text)!)
+                                  double.parse(quantityController.text), double.parse(priceController.text))
                               .then((value) {
                             setState(() {
                               loading = false;

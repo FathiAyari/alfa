@@ -28,7 +28,7 @@ class StockServices {
     }
   }
 
-  static Future addProduct(String libelle, int quantity, int price) async {
+  static Future addProduct(String libelle, double quantity, double price) async {
     try {
       Map<String, dynamic> data = {
         "libelle": libelle,
@@ -42,7 +42,7 @@ class StockServices {
     }
   }
 
-  static Future updateProduct(int id, String libelle, int quantity, int price) async {
+  static Future updateProduct(int id, String libelle, double quantity, double price) async {
     try {
       Map<String, dynamic> data = {
         "libelle": libelle,
@@ -50,6 +50,7 @@ class StockServices {
         "price": price,
       };
       http.Response response = await CallApi().putData(data, ApiConstants.product + "/${id}");
+      print(response.body);
     } catch (e) {
       print(e.toString());
     }

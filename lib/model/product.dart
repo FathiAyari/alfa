@@ -2,8 +2,8 @@ class Product {
   final int id;
 
   final String libelle;
-  final int quantity;
-  final int price;
+  final double quantity;
+  final double price;
 
   Product({
     required this.libelle,
@@ -15,8 +15,8 @@ class Product {
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       libelle: json['libelle'],
-      quantity: json['quantity'],
-      price: json['price'],
+      quantity: json['quantity'].toDouble(),
+      price: json['price'].toDouble(),
       id: json['id'],
     );
   }
