@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/dimensions/dimensions.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_application_1/model/sale.dart';
 import 'package:flutter_application_1/services/api_const.dart';
 import 'package:flutter_application_1/services/callapi.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
@@ -152,11 +152,12 @@ class SaleServices {
     document.save().then((value) {
       List<int> bytes = value;
 
-      saveAndLaunchFile(bytes, '${sale.client.name}_${sale.product.libelle}${Random().nextInt(101)}.pdf', sale.id);
+      saveAndLaunchFile(bytes,
+          '${sale.client.name}_${sale.product.libelle}_${DateFormat('yyyy_MM_dd_hh_mm').format(DateTime.now())}.pdf', sale.id);
     });
   }
 
-  static Future<void> saveAndLaunchFile(List<int> bytes, String fileName, int sale) async {
+  static Future<void> saveAndLaunchFile(List<int> bytes, String fileName, [int? sale]) async {
     final path = (await getExternalStorageDirectory())!.path;
     final file = File('$path/$fileName');
     await file.writeAsBytes(bytes, flush: true);
@@ -164,10 +165,51 @@ class SaleServices {
       'Content-Type': 'multipart/form-data',
       'Accept': 'application/json',
     };
-    var request = http.MultipartRequest('POST', Uri.parse(ApiConstants.baseURL + ApiConstants.pdf + "/${sale}"))
-      ..headers.addAll(headers)
-      ..files.add(await http.MultipartFile.fromPath('image', "$path/$fileName"));
+    var request =
+        http.MultipartRequest('POST', Uri.parse(ApiConstants.baseURL + ApiConstants.pdf + (sale != null ? "/${sale}" : "")))
+          ..headers.addAll(headers)
+          ..files.add(await http.MultipartFile.fromPath('image', "$path/$fileName"));
     var response = await request.send();
-    print(response.statusCode);
+  }
+
+  /// deal with images
+
+  static Future generatePdfFromImage(String file, clientName, productName) async {
+    PdfDocument document = PdfDocument();
+    final page = document.pages.add();
+    final bytes = File(file).readAsBytesSync();
+    final image = PdfBitmap(bytes);
+    // Get the image dimensions
+    final imageWidth = image.width.toDouble();
+    final imageHeight = image.height.toDouble();
+
+    // Calculate the scale factors for the image
+    final pageWidth = page.getClientSize().width.toDouble();
+    final pageHeight = page.getClientSize().height.toDouble();
+    final scaleX = pageWidth / imageWidth;
+    final scaleY = pageHeight / imageHeight;
+    final scale = scaleX < scaleY ? scaleX : scaleY;
+
+    // Calculate the position to center the image on the page
+    final offsetX = (pageWidth - imageWidth * scale) / 2;
+    final offsetY = (pageHeight - imageHeight * scale) / 2;
+
+    page.graphics.drawString(
+        "Facture de vente ",
+        PdfStandardFont(
+          PdfFontFamily.helvetica,
+          20,
+        ),
+        brush: PdfBrushes.black,
+        bounds: Rect.fromLTWH(Constants.screenWidth * 0.4, 25, 300, 50));
+    page.graphics.drawImage(
+      image,
+      Rect.fromLTWH(0, 100, pageWidth, pageHeight),
+    );
+    document.save().then((value) {
+      List<int> bytes = value;
+
+      saveAndLaunchFile(bytes, "${clientName}_${productName}_${DateFormat('yyyy_MM_dd_hh_mm').format(DateTime.now())}.pdf");
+    });
   }
 }

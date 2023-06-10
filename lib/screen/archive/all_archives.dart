@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/composants/inputs/input_field.dart';
 import 'package:flutter_application_1/dimensions/dimensions.dart';
+import 'package:flutter_application_1/screen/archive/add_archive.dart';
 import 'package:flutter_application_1/screen/archive/months.dart';
 import 'package:flutter_application_1/screen/archive/view_pdf.dart';
 import 'package:flutter_application_1/services/api_const.dart';
@@ -24,21 +25,16 @@ class _AllArchivesState extends State<AllArchives> {
     http.Response response = await CallApi().getData(ApiConstants.allpdf);
     List<String> filtered = [];
     var data = jsonDecode(response.body);
-
-    if (value.isNotEmpty) {
-      for (var product in data) {
-        if (product.toLowerCase().contains(value.toLowerCase())) {
+    for (var product in data) {
+      if (product.toLowerCase().contains(value.toLowerCase())) {
+        setState(() {
           filtered.add(product);
-        }
+        });
       }
-      setState(() {
-        filteredData = filtered;
-      });
-    } else {
-      setState(() {
-        filteredData = [];
-      });
     }
+    setState(() {
+      filteredData = filtered;
+    });
   }
 
   TextEditingController controller = TextEditingController();
@@ -153,7 +149,25 @@ class _AllArchivesState extends State<AllArchives> {
               }),
         );
       } else {
-        return Text("no data");
+        return Expanded(
+          child: ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Center(
+                    child: Container(
+                  height: Constants.screenHeight * 0.4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Pas des elements dans l'archive",
+                        style: TextStyle(fontSize: 20, fontFamily: "NunitoBold", color: Colors.black.withOpacity(0.5)),
+                      )
+                    ],
+                  ),
+                ));
+              }),
+        );
       }
     }
   }
@@ -163,7 +177,9 @@ class _AllArchivesState extends State<AllArchives> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(AddArchive());
+          },
           child: Icon(Icons.add),
         ),
         appBar: AppBar(
@@ -179,10 +195,16 @@ class _AllArchivesState extends State<AllArchives> {
               children: [
                 InputField(
                   onChanged: (value) {
-                    filterData(value);
+                    if (value.isEmpty) {
+                      setState(() {
+                        filteredData = [];
+                      });
+                    } else {
+                      filterData(value);
+                    }
                   },
                   prefixWidget: Icon(Icons.search),
-                  label: 'Nom de client',
+                  label: 'Nom de client , produit',
                   textInputType: TextInputType.text,
                   controller: controller,
                 ),

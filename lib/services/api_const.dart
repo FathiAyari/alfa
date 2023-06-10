@@ -14,4 +14,5 @@ class ApiConstants {
   static String sales = "sales";
   static String pdf = "pdf";
   static String allpdf = "allpdf";
+  static String archive = "archive";
 }

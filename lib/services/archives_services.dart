@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class ArchivesServices {
   static Future<Map<String, dynamic>> getSales() async {
     try {
-      http.Response response = await CallApi().getData(ApiConstants.pdf);
+      http.Response response = await CallApi().getData(ApiConstants.archive);
       return jsonDecode(response.body);
     } catch (e) {
       return {};
